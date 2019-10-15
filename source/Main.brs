@@ -14,6 +14,8 @@ sub Main()
 
   themeScene()
 
+  m.page_size = 50
+
   app_start:
   ' First thing to do is validate the ability to use the API
   LoginFlow()
@@ -121,8 +123,15 @@ sub Main()
       options.query = query
     else if isNodeEvent(msg, "pageSelected")
       group.pageNumber = msg.getRoSGNode().pageSelected
-      ' TODO - assume its a movie for now
-      MovieLister(group, 50)
+
+      if group.library = invalid
+        ' We shouldn't hit this, but better to get the case out of the way
+        ' rather than trying to load invalid.type
+      else if group.library.type = "movies"
+        MovieLister(group, m.page_size)
+      else if group.library.type = "tvshows"
+        TVShowLister(group, m.page_size)
+      end if
       ' TODO - abstract away the "picker" node
       group.findNode("picker").setFocus(true)
     else if isNodeEvent(msg, "itemSelected")

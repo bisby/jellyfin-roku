@@ -154,6 +154,7 @@ end function
 function CreateMovieListGroup(library)
   group = CreateObject("roSGNode", "Movies")
   group.id = library.id
+  group.library = library
 
   group.observeField("movieSelected", m.port)
 
@@ -197,7 +198,7 @@ function CreateMovieListGroup(library)
   group.pageNumber = 1
   p.currentPage = group.pageNumber
 
-  MovieLister(group, 50)
+  MovieLister(group, m.page_size)
 
   return group
 end function
@@ -220,6 +221,7 @@ end function
 function CreateTVShowListGroup(library)
   group = CreateObject("roSGNode", "TVShows")
   group.id = library.id
+  group.library = library
 
   group.observeField("seriesSelected", m.port)
 
@@ -263,7 +265,7 @@ function CreateTVShowListGroup(library)
   group.pageNumber = 1
   p.currentPage = group.pageNumber
 
-  TVShowLister(group, 50)
+  TVShowLister(group, m.page_size)
 
   return group
 end function
@@ -365,7 +367,7 @@ sub ShowCollections(library)
   item_grid = scene.findNode("picker")
 
   page_num = 1
-  page_size = 50
+  page_size = m.page_size
 
   sort_order = get_user_setting("collection_sort_order", "Ascending")
   sort_field = get_user_setting("collection_sort_field", "SortName")
@@ -512,7 +514,7 @@ function MovieLister(group, page_size)
 
 
   p = group.findNode("paginator")
-  p.maxPages = group.objects.TotalRecordCount / 50
+  p.maxPages = group.objects.TotalRecordCount / m.page_size
 end function
 
 function TVShowLister(group, page_size)
@@ -529,5 +531,5 @@ function TVShowLister(group, page_size)
 
 
   p = group.findNode("paginator")
-  p.maxPages = group.objects.TotalRecordCount / 50
+  p.maxPages = group.objects.TotalRecordCount / m.page_size
 end function
