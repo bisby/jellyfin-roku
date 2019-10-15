@@ -75,6 +75,14 @@ sub Main()
         group = CreateMovieListGroup(node)
         m.overhang.title = group.overhangTitle
         m.scene.appendChild(group)
+      else if node.type = "tvshows"
+        group.lastFocus = group.focusedChild
+        group.setFocus(false)
+        group.visible = false
+
+        group = CreateTVShowListGroup(node)
+        m.overhang.title = group.overhangTitle
+        m.scene.appendChild(group)
       else
         ' TODO - switch on more node types
         message_dialog("This library type is not yet implemented: " + node.type)
@@ -88,6 +96,17 @@ sub Main()
       group.visible = false
 
       group = CreateMovieDetailsGroup(node)
+      m.scene.appendChild(group)
+      m.overhang.title = group.overhangTitle
+    else if isNodeEvent(msg, "seriesSelected")
+      ' If you select a TV Series from ANYWHERE, follow this flow
+      node = getMsgPicker(msg, "picker")
+
+      group.lastFocus = group.focusedChild
+      group.setFocus(false)
+      group.visible = false
+
+      group = CreateTVShowDetailsGroup(node)
       m.scene.appendChild(group)
       m.overhang.title = group.overhangTitle
     else if isNodeEvent(msg, "search_value")

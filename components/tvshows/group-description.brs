@@ -18,7 +18,6 @@ sub itemContentChanged()
   m.top.findNode("tvshowPoster").uri = m.top.itemContent.posterURL
 
   ' Handle all "As Is" fields
-  setFieldText("title", itemData.name)
   setFieldText("releaseYear", itemData.productionYear)
   setFieldText("officialRating", itemData.officialRating)
   setFieldText("communityRating", str(itemData.communityRating))
