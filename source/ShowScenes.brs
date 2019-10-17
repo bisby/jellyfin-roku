@@ -282,46 +282,6 @@ function CreateTVShowDetailsGroup(tvshow)
   return group
 end function
 
-sub ShowTVShowDetails(series)
-  ' TV Show Detail Page
-  port = m.port
-  screen = m.screen
-  scene = screen.CreateScene("TVShowItemDetailScene")
-
-  themeScene(scene)
-
-  series = ItemMetaData(series.id)
-  scene.itemData = series
-  scene.findNode("description").findNode("buttons").setFocus(true)
-  scene.seasonData = TVSeasons(series.id)
-
-  scene.findNode("description").findNode("buttons").setFocus(true)
-
-  'buttons = scene.findNode("buttons")
-  'buttons.observeField("buttonSelected", port)
-
-  scene.findNode("seasons").observeField("rowItemSelected", port)
-
-  while true
-    msg = wait(0, port)
-    if type(msg) = "roSGScreenEvent" and msg.isScreenClosed() then
-      return
-    else if nodeEventQ(msg, "buttonSelected")
-      ' What button could we even be watching yet
-    else if nodeEventQ(msg, "rowItemSelected")
-      ' Assume for now it's a season being selected
-      season_list = msg.getRoSGNode()
-      item = msg.getData()
-      season = season_list.content.getChild(item[0]).getChild(item[1])
-
-      ShowTVSeasonEpisodes(series, season)
-    else
-      print msg
-      print type(msg)
-    end if
-  end while
-end sub
-
 sub ShowTVSeasonEpisodes(series, season)
   ' TV Show Season Episdoe List
   port = m.port
