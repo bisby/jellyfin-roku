@@ -10,7 +10,8 @@ sub init()
 
     updateSize()
 
-    m.top.setfocus(true)
+    m.top.observeField("rowItemSelected", onItemSelect)
+    m.top.observeField("itemSelected", onItemSelect)
 end sub
 
 sub updateSize()
@@ -19,18 +20,18 @@ sub updateSize()
 
     dimensions = m.top.getScene().currentDesignResolution
 
-    border = 50
-    m.top.translation = [border, border]
+    m.top.translation = [119, 155]
 
     textHeight = 80
     ' Do we decide width by rowSize, or rowSize by width...
-    itemWidth = (dimensions["width"] - border*2) / m.top.rowSize
+    itemWidth = 240
     itemHeight = itemWidth * 1.5 + textHeight
 
     m.top.visible = true
 
     ' size of the whole row
-    m.top.itemSize = [dimensions["width"] - border*2, itemHeight]
+    ' account for border AND panel "left position"
+    m.top.itemSize = [1920 - (238 + 150), itemHeight]
     ' spacing between rows
     m.top.itemSpacing = [ 0, 10 ]
 
@@ -38,6 +39,7 @@ sub updateSize()
     m.top.rowItemSize = [ itemWidth, itemHeight ]
     ' spacing between items in a row
     m.top.rowItemSpacing = [ 0, 0 ]
+
 end sub
 
 function getData()
@@ -47,7 +49,6 @@ function getData()
     end if
 
     seasonData = m.top.TVSeasonData
-    rowsize = m.top.rowSize
     data = CreateObject("roSGNode", "ContentNode")
     row = data.CreateChild("ContentNode")
     row.title = "Seasons"
@@ -56,4 +57,24 @@ function getData()
     end for
     m.top.content = data
     return data
+end function
+
+function onKeyEvent(key as string, press as boolean) as boolean
+  if not press then return false
+
+
+  if key = "right"
+    ' TODO - if on the last element capture and do nothing
+    return false
+  end if
+
+  return false
+end function
+
+function onItemSelect()
+  print m.top.rowItemSelected
+  print m.top.itemSelected
+  print m.top.rowItemFocused
+  print m.top.itemFocused
+
 end function

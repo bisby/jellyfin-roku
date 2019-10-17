@@ -5,12 +5,6 @@
       id="TVEpisodeSelect"
       visible="true"
       />
-    <Overhang
-      id="overhang"
-      title="TV Shows"
-      />
-    <Rectangle id="footerBackdrop" />
-    <Pager id="pager" />
   </children>
   <interface>
     <field id="showData" type="node" />

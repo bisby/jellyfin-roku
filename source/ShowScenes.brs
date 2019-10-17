@@ -275,9 +275,8 @@ function CreateTVShowDetailsGroup(tvshow)
 
   tvshow = ItemMetaData(tvshow.id)
   group.itemData = tvshow
+  group.seasonData = TVSeasons(tvshow.id)
   group.overhangTitle = tvshow.json.name
-
-  group.setFocus(true)
 
   return group
 end function

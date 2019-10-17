@@ -110,6 +110,7 @@ sub Main()
 
       group = CreateTVShowDetailsGroup(node)
       m.scene.appendChild(group)
+      group.findNode("panel-desc").findNode("buttons").setFocus(true)
       m.overhang.title = group.overhangTitle
     else if isNodeEvent(msg, "search_value")
       query = msg.getRoSGNode().search_value

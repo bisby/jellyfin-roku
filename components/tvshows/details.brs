@@ -13,20 +13,23 @@ sub init()
     panel2.hasNextPanel = false
     panel2.isFullScreen = true
     panel2.leftPosition = 150
-    ' TODO - set the bounds so seasons dont go off the edge of the screen
 end sub
 
 sub panelFocusChanged()
     set = m.top.findNode("panelset")
     index = m.top.panelFocused
 
+    print index
+    print set.focusedChild
+
     if index = 0
         ' Description page
         ' TODO - get the buttons to actually take focus back
-        set.findNode("description").findNode("buttons").setFocus(true)
+        m.top.findNode("description").findNode("buttons").setFocus(true)
+        print "SETTING FOCUS"
     else if index = 1
         ' Seasons page
-        set.findNode("seasons").setFocus(true)
+        m.top.findNode("seasons").setFocus(true)
     end if
 
 end sub
