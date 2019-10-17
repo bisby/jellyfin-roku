@@ -16,8 +16,8 @@ end sub
 
 sub updateSize()
     ' real border is border - rowlist title and rowlist padding
-    topborder = 50
-    sideborder = 150
+    topborder = 40
+    sideborder = 119
     ' 115 is the overhang height
     m.top.translation = [sideborder, topborder + 115]
 

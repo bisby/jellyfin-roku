@@ -3,8 +3,6 @@
   <children>
     <LibraryRow id="LibrarySelect" />
 
-    <Rectangle id="footerBackdrop" height="200" />
-
     <OptionsSlider id="options" />
   </children>
   <interface>
